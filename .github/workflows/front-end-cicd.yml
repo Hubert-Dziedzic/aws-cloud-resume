@@ -7,10 +7,10 @@ on:
 
 jobs:
   deploy:
-    runs-in: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - users: actions/checkout@master
-      - users: jakejarvis/s3-sync-action@master
+      - uses: actions/checkout@master
+      - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
