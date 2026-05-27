@@ -12,3 +12,8 @@ output "github_actions_role_arn" {
   description = "The ARN of the IAM role for GitHub Actions to deploy to S3."
   value       = aws_iam_role.github_actions_role.arn
 }
+
+output "route53_name_servers" {
+  description = "The name servers for the Route 53 hosted zone."
+  value       = aws_route53_zone.main.name_servers
+}
