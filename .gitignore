@@ -89,3 +89,9 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+crash.log
