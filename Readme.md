@@ -6,7 +6,7 @@ Welcome to my cloud portfolio repository! Here you will find the Infrastructure 
 
 > **Project Status:** This project is **actively under development**! I am continuously adding new features, experimenting with AWS services, and improving the underlying architecture.
 
-## echnologies Used
+## Technologies Used
 
 * **Cloud:** AWS (S3, CloudFront, IAM, OIDC)
 * **Infrastructure as Code:** Terraform
