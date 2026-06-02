@@ -8,14 +8,19 @@ Welcome to my cloud portfolio repository! Here you will find the Infrastructure 
 
 ## Technologies Used
 
-* **Cloud:** AWS (S3, CloudFront, IAM, OIDC)
+* **Cloud:** AWS (S3, CloudFront, Route53, ACM, IAM, Lambda, DynamoDB, SNS)
 * **Infrastructure as Code:** Terraform
-* **CI/CD:** GitHub Actions
+* **Backend / API:** Python (boto3)
+* **CI/CD:** GitHub Actions (with OIDC keyless authentication)
 * **Frontend:** HTML/CSS/JS (in the `/website` directory)
 
 ## Architecture & Deployment
 
-The website is fully serverless and hosted on AWS.
-1. Static files are securely stored in a private **Amazon S3** bucket.
-2. Content delivery (CDN), HTTPS encryption, and caching are handled by **Amazon CloudFront**.
-3. The entire deployment process (triggered by changes to the `main` branch) is fully automated using **GitHub Actions** with secure, keyless authentication (OpenID Connect).
+The website is designed as a highly available, fully serverless application. Below is a breakdown of how the components interact:
+
+1. **Frontend Hosting & Security:** Static assets (HTML, CSS, JS) are stored in a private **Amazon S3** bucket. Direct public access to the bucket is blocked, and content is exclusively served through CloudFront using Origin Access Control (OAC).
+2. **DNS & Content Delivery:** **Amazon Route 53** routes traffic to the custom domain, while **Amazon CloudFront** acts as a global CDN to cache content at edge locations for low latency. **AWS Certificate Manager (ACM)** handles SSL/TLS certificates to enforce secure HTTPS connections.
+3. **Serverless Backend API:** A Python-based **AWS Lambda** function powers the dynamic "Visitor Counter" feature. It is exposed via a lightweight Lambda Function URL (configured with strict CORS rules) to handle frontend HTTP requests efficiently.
+4. **Database State:** The visitor count is maintained in an **Amazon DynamoDB** table, providing fast, scalable, and serverless NoSQL storage with Pay-Per-Request billing.
+5. **Observability & Alerts:** To monitor traffic anomalies, the Lambda function evaluates the source IP of incoming requests. If the IP does not match the developer's known address, it triggers an **Amazon SNS** topic to send a real-time email alert about the new visitor.
+6. **Automated CI/CD Pipeline:** The entire infrastructure and frontend updates are automated using **GitHub Actions**. Upon merging changes to the `main` branch, the workflow securely assumes an IAM role via OpenID Connect (OIDC) to sync updated files to S3 and invalidate the CloudFront cache, ensuring zero downtime.
