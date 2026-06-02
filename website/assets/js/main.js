@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             const response = await fetch(apiUrl);
             if (response.ok) {
                 const data = await response.json();
-                counterElement.textContent = `Views: ${data.views}`;
+                counterElement.textContent = `Views: ${data.visits}`;
             } else {
                 console.error("Server responded with status: ", response.status);
             }
