@@ -59,7 +59,7 @@ filename         = data.archive_file.lambda_zip.output_path
         variables = {
             TABLE_NAME = aws_dynamodb_table.visit_counter.name
             TOPIC_ARN  = aws_sns_topic.visitor_alerts.arn
-            MY_IP      = "109.95.173.133"
+            MY_IP      = var.my_ip
         }
     }
 }

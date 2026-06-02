@@ -15,3 +15,9 @@ variable "alert_email" {
   type        = string
   default     = "hubert.dziedzic26@gmail.com"
 }
+
+variable "my_ip" {
+  description = "Your current IP address for secure access to AWS resources."
+  type        = string
+  sensitive   = true
+}
