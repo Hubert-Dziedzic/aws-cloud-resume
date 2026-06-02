@@ -210,3 +210,20 @@ if (document.readyState === 'loading') {
 } else {
     updateCounter();
 }
+
+document.addEventListener("DOMContentLoaded", async function() {
+        const apiUrl = "https://kmpi2trxuy4mbiqx3ggq2uyeym0ockch.lambda-url.eu-west-3.on.aws/"; 
+        const counterElement = document.querySelector('.counter-number');
+
+        try {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                const data = await response.json();
+                counterElement.textContent = `Views: ${data.views}`;
+            } else {
+                console.error("Server responded with status: ", response.status);
+            }
+        } catch (error) {
+            console.error("Failed to fetch views: ", error);
+        }
+    });

@@ -15,30 +15,31 @@ def lambda_handler(event, context):
     caller_ip = event.get('requestContext', {}).get('http', {}).get('sourceIp', 'Unknown')
 
     try:
-        reqsponse = table.update_item(
+        response = table.update_item(
             Key={'id': 'views'},
             UpdateExpression='ADD visits :inc',
             ExpressionAttributeValues={':inc': 1},
             ReturnValues='UPDATED_NEW'
         )
-        current_views = int(reqsponse['Attributes']['visits'])
+        current_views = int(response['Attributes']['visits'])
     except Exception as e:
         print(f"Error updating DynamoDB: {e}")
         return {
             'statusCode': 500,
             'body': json.dumps({'error': 'Could not update visitor count'})
         }
+        
     if caller_ip != MY_IP:
         try:
             sns.publish(
                 TopicArn=TOPIC_ARN,
-                subject='New Visitor Alert',
+                Subject='New Visitor Alert',
                 Message=f"New visitor from IP: {caller_ip}. Total visits: {current_views}"
             )
         except Exception as e:
             print(f"Error publishing to SNS: {e}")
+            
     return {
         'statusCode': 200,
         'body': json.dumps({'visits': current_views})
     }
-

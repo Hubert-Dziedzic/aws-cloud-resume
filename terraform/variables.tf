@@ -9,3 +9,9 @@ variable "domain_name" {
   type        = list(string)
   default     = ["hubert-dziedzic.pl", "www.hubert-dziedzic.pl"]
 }
+
+variable "alert_email" {
+  description = "Email address to receive visitor alerts."
+  type        = string
+  default     = "hubert.dziedzic26@gmail.com"
+}

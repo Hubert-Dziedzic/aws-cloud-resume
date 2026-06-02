@@ -17,3 +17,8 @@ output "route53_name_servers" {
   description = "The name servers for the Route 53 hosted zone."
   value       = aws_route53_zone.main.name_servers
 }
+
+output "lambda_api_url" {
+  description = "The URL of the API Gateway endpoint for the visitor counter Lambda function."
+  value = aws_lambda_function_url.visitor_counter_url.function_url
+}
