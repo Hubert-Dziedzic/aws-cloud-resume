@@ -1,10 +1,12 @@
-# ☁️ AWS Cloud Portfolio
+# AWS Cloud Portfolio
 
 Welcome to my cloud portfolio repository! Here you will find the Infrastructure as Code (IaC) and the source files for my personal website.
 
+**Live Website:** [https://hubert-dziedzic.pl](https://hubert-dziedzic.pl)
+
 > **Project Status:** This project is **actively under development**! I am continuously adding new features, experimenting with AWS services, and improving the underlying architecture.
 
-## echnologies Used
+## Technologies Used
 
 * **Cloud:** AWS (S3, CloudFront, IAM, OIDC)
 * **Infrastructure as Code:** Terraform
