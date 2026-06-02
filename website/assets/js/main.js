@@ -191,22 +191,21 @@
 
 const counter = document.querySelector('.counter-number');
 
-async function updateCounter() {
-    console.log('Counter element:', counter); 
-    console.log('Counter is null?', counter === null);
+document.addEventListener("DOMContentLoaded", async function() {
+    const apiUrl = "https://kmpi2trxuy4mbiqx3ggq2uyeym0ockch.lambda-url.eu-west-3.on.aws/"; 
+    const counterElement = document.querySelector('.counter-number');
+
     try {
-        let response = await fetch('https://kmpi2trxuy4mbiqx3ggq2uyeym0ockch.lambda-url.eu-west-3.on.aws/');
-        let data = await response.json();
-        counter.innerHTML = `Views: ${data.visits}`;
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const data = await response.json();
+            counterElement.textContent = `Views: ${data.visits}`;
+        } else {
+            console.error("Server responded with status: ", response.status);
+            counterElement.textContent = "Views: API Error";
+        }
     } catch (error) {
-        counter.innerHTML = 'Could not load views';
-        console.error('Błąd:', error);
+        console.error("Failed to fetch views: ", error);
+        counterElement.textContent = "Views: Network Error";
     }
-}
-
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateCounter);
-} else {
-    updateCounter();
-}
+});

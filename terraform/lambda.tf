@@ -71,7 +71,7 @@ resource "aws_lambda_function_url" "visitor_counter_url" {
     cors{
         allow_credentials = false
         allow_origins     = ["https://hubert-dziedzic.pl", "https://www.hubert-dziedzic.pl", "http://localhost:3000"]
-        allow_methods = ["POST", "POST"]
+        allow_methods = ["GET", "POST"]
         allow_headers = ["*"]
         max_age = 86400
     }
